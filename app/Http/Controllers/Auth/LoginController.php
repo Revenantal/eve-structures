@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Carbon\Carbon;
 use Socialite;
-
+use Conduit\Conduit;
 
 class LoginController extends Controller
 {
@@ -61,21 +61,18 @@ class LoginController extends Controller
         }
 
         // Collect character data
-       // $api = new Conduit();
-      //  $character =  $api->characters($ssoUser->id)->get();
-       // $corporation = $api->corporations($character->corporation_id)->get();
+        $api = new Conduit();
+        $character =  $api->characters($ssoUser->id)->get();
+        $corporation = $api->corporations($character->corporation_id)->get();
 
         // Check if user exists
         $user = User::firstOrNew(['character_id' => $ssoUser->id]);
 
         // And then update the data in case something changed
         $user->character_id = $ssoUser->id;
-        /*$user->character_name = $character->name;
+        $user->character_name = $character->name;
         $user->corporation_id = $character->corporation_id;
-        $user->corporation_name = $corporation->name;*/
-        $user->character_name = 'test';
-        $user->corporation_id = 1;
-        $user->corporation_name = 'test2';
+        $user->corporation_name = $corporation->name;
 
         $user->last_login = Carbon::now();
         $user->save();
