@@ -45,7 +45,10 @@ class LoginController extends Controller
     public function login()
     {
         try {
-            return Socialite::driver('eveonline')->redirect();
+            return Socialite::driver('eveonline')
+                ->scopes(['esi-corporations.read_structures.v1',
+                          'esi-universe.read_structures.v1'])
+                ->redirect();
         } catch (\Exception $e) {
             Log::error('Redirect to EvE Online SSO failed');
             return abort(502);
@@ -71,9 +74,9 @@ class LoginController extends Controller
         // And then update the data in case something changed
         $user->character_id = $ssoUser->id;
         $user->character_name = $character->name;
+        $user->refresh_token = $ssoUser->refreshToken;
         $user->corporation_id = $character->corporation_id;
         $user->corporation_name = $corporation->name;
-
         $user->last_login = Carbon::now();
         $user->save();
 

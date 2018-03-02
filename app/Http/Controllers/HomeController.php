@@ -1,8 +1,8 @@
 <?php
-
 namespace App\Http\Controllers;
-
+use Conduit\Authentication;
 use Illuminate\Http\Request;
+use Conduit\Conduit;
 
 class HomeController extends Controller
 {
@@ -15,7 +15,6 @@ class HomeController extends Controller
     {
         $this->middleware('auth');
     }
-
     /**
      * Show the application dashboard.
      *

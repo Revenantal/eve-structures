@@ -11,10 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
 // Auth Routing
 Route::group(['prefix' => 'auth'], function(){
     Route::get('/login', ['as' => 'login', 'uses' => 'Auth\LoginController@login']);
@@ -22,4 +18,4 @@ Route::group(['prefix' => 'auth'], function(){
     Route::post('/logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index');
