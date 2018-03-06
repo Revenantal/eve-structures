@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use Auth;
 use App\Models\Auth\User;
+use App\Models\Corporation;
+use App\Models\Alliance;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Carbon\Carbon;
@@ -63,23 +65,58 @@ class LoginController extends Controller
             return redirect()->route('login');
         }
 
-        // Collect character data
+
+        //TODO: Add handler for same corp, different alliance
+
+        // Get character details
         $api = new Conduit();
-        $character =  $api->characters($ssoUser->id)->get();
-        $corporation = $api->corporations($character->corporation_id)->get();
+        $apiCharacter = $api->characters($ssoUser->id)->get();
 
-        // Check if user exists
+        $corporation = Corporation::firstOrNew(['corporation_id' => $apiCharacter->corporation_id]);
+
+        if (isset($apiCharacter->data->alliance_id)) {
+            $alliance = Alliance::firstOrNew(['alliance_id' => $apiCharacter->alliance_id]);
+            if(!$alliance->exists) {
+                $apiAlliance = $api->alliances($apiCharacter->alliance_id)->get();
+                $alliance->alliance_id = $apiCharacter->alliance_id;
+                $alliance->name = $apiAlliance->name;
+                $alliance->ticker = $apiAlliance->ticker;
+                $alliance->save();
+            }
+
+            // Update Corporation if it already exists and they changed alliances
+            if ($corporation->exists && $corporation->alliance_id != $alliance->id) {
+                $corporation->alliance_id = $alliance->id;
+                $corporation->save();
+            }
+        }
+
+        // Update Corporation
+        if(!$corporation->exists) {
+            $apiCorporation = $api->corporations($apiCharacter->corporation_id)->get();
+            $corporation->corporation_id = $apiCharacter->corporation_id;
+            $corporation->name = $apiCorporation->name;
+            $corporation->ticker = $apiCorporation->ticker;
+            if (isset($alliance)) { $corporation->alliance_id = $alliance->id; }
+            $corporation->save();
+        }
+
+        // Get or Create User
         $user = User::firstOrNew(['character_id' => $ssoUser->id]);
-
         // And then update the data in case something changed
         $user->character_id = $ssoUser->id;
-        $user->character_name = $character->name;
+        $user->character_name = $apiCharacter->name;
         $user->refresh_token = $ssoUser->refreshToken;
-        $user->corporation_id = $character->corporation_id;
-        $user->corporation_name = $corporation->name;
-        $user->last_login = Carbon::now();
+        $user->corporation_id = $corporation->id;
+        if (isset($alliance)) { $user->alliance_id = $alliance->id; }
         $user->save();
 
+      /*  $auth = new \Conduit\Authentication(env('EVEONLINE_CLIENT_ID'), env('EVEONLINE_CLIENT_SECRET'), $ssoUser->refreshToken);
+        $api = new Conduit($auth);
+        $structures = $api->corporations($character->corporation_id)->structures()->get()->data;
+        dd($structures);
+        dd($api->universe()->structures($structures[0]->structure_id)->get()->data);
+*/
         // and then log in
         Auth::login($user, true);
 

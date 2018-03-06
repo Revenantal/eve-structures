@@ -18,9 +18,8 @@ class CreateUsersTable extends Migration
             $table->bigInteger('character_id');
             $table->string('character_name');
             $table->string('refresh_token');
-            $table->integer('corporation_id');
-            $table->string('corporation_name');
-            $table->timestamp('last_login')->nullable();
+            $table->bigInteger('corporation_id');
+            $table->bigInteger('alliance_id')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

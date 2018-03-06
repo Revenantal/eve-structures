@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSolarSystemsTable extends Migration
+class CreateCorporationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateSolarSystemsTable extends Migration
      */
     public function up()
     {
-        Schema::create('solar_systems', function (Blueprint $table) {
-            $table->integer('id');
+        Schema::create('corporations', function (Blueprint $table) {
+            $table->increments('id');
+            $table->bigInteger('corporation_id');
+            $table->bigInteger('alliance_id')->nullable();
             $table->string('name');
-            $table->integer('region_id');
-            $table->double('security');
+            $table->string('ticker');
+            $table->timestamps();
         });
     }
 
@@ -28,7 +30,6 @@ class CreateSolarSystemsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('solar_systems');
+        Schema::dropIfExists('corporations');
     }
 }
-

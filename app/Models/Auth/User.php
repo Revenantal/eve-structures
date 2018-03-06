@@ -18,6 +18,7 @@ class User extends Authenticatable
         'character_id',
         'character_name',
         'corporation_id',
+        'alliance_id',
         'last_login',
     ];
 
@@ -29,4 +30,13 @@ class User extends Authenticatable
     protected $hidden = [
         'remember_token',
     ];
+
+    public function corporation(){
+        return $this->belongsTo('App\Models\Corporation', 'corporation_id');
+    }
+
+    public function alliance(){
+        return $this->belongsTo('App\Models\Alliance', 'alliance_id');
+    }
+
 }
