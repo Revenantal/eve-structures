@@ -6,9 +6,9 @@ use Auth;
 use App\Models\Auth\User;
 use App\Models\Corporation;
 use App\Models\Alliance;
+use App\Models\Structure;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Carbon\Carbon;
 use Socialite;
 use Conduit\Conduit;
 
@@ -65,9 +65,6 @@ class LoginController extends Controller
             return redirect()->route('login');
         }
 
-
-        //TODO: Add handler for same corp, different alliance
-
         // Get character details
         $api = new Conduit();
         $apiCharacter = $api->characters($ssoUser->id)->get();
@@ -111,15 +108,10 @@ class LoginController extends Controller
         if (isset($alliance)) { $user->alliance_id = $alliance->id; }
         $user->save();
 
-      /*  $auth = new \Conduit\Authentication(env('EVEONLINE_CLIENT_ID'), env('EVEONLINE_CLIENT_SECRET'), $ssoUser->refreshToken);
-        $api = new Conduit($auth);
-        $structures = $api->corporations($character->corporation_id)->structures()->get()->data;
-        dd($structures);
-        dd($api->universe()->structures($structures[0]->structure_id)->get()->data);
-*/
         // and then log in
         Auth::login($user, true);
-
+        // Update the new users structures
+        Structure::UpdateStructures();
         return redirect('/');
     }
 
