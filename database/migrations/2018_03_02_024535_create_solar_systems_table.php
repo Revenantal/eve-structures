@@ -14,7 +14,8 @@ class CreateSolarSystemsTable extends Migration
     public function up()
     {
         Schema::create('solar_systems', function (Blueprint $table) {
-            $table->integer('id');
+            $table->increments('id');
+            $table->bigInteger('system_id');
             $table->string('name');
             $table->integer('region_id');
             $table->double('security');

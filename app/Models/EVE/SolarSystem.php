@@ -9,6 +9,6 @@ class SolarSystem extends Model
     public $timestamps = false;
 
     public function region(){
-        return $this->belongsTo('App\Models\EVE\Region', 'region_id', 'id');
+        return $this->belongsTo('App\Models\EVE\Region', 'region_id', 'region_id');
     }
 }

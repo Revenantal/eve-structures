@@ -31,8 +31,8 @@
                                     <tr>
                                         <td>{{ $structure->name }}</td>
                                         <td><a href="//evemaps.dotlan.net/map/{{ $structure->system->region->name }}/{{ $structure->system->name }}" target="_blank">{{ $structure->system->name }}</a></td>
-                                        <td>{{ $structure->type_id }}</td>
-                                        <td>{{ $structure->state }}</td>
+                                        <td>{{ $structure->type->name }}</td>
+                                        <td>{{ $structure->friendlyState() }}</td>
                                         <td><img src="//image.eveonline.com/Corporation/{{ $structure->corporation->corporation_id }}_32.png"> {{ $structure->corporation->name }}</td>
                                         <td><img src="//image.eveonline.com/Alliance/{{ $structure->corporation->alliance->alliance_id }}_32.png"> {{ $structure->corporation->alliance->name }}</td>
                                         <td>{{ $structure->fuel_expires }}</td>

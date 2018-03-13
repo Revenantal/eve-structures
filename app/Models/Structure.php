@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Auth\User;
 use Conduit\Conduit;
 use Carbon\Carbon;
+use App\Models\EVE\Type;
 
 class Structure extends Model
 {
@@ -25,7 +26,11 @@ class Structure extends Model
     }
 
     public function system(){
-        return $this->belongsTo('App\Models\EVE\SolarSystem', 'system_id');
+        return $this->belongsTo('App\Models\EVE\SolarSystem', 'system_id', 'system_id');
+    }
+
+    public function type(){
+        return $this->belongsTo('App\Models\EVE\Type', 'type_id', 'type_id');
     }
 
     public function services(){
@@ -43,7 +48,7 @@ class Structure extends Model
             $apiStructures = $api->corporations($user->corporation->corporation_id)->structures()->get()->data;
 
             foreach ($apiStructures as $apiStructure) {
-                $structureName = $api->universe()->structures($apiStructure->structure_id)->get()->data->name;
+                $structureName = Structure::removeSystemFromName($api->universe()->structures($apiStructure->structure_id)->get()->data->name);
                 $structure = Structure::firstOrNew(['structure_id' => $apiStructure->structure_id]);
                 $structure->structure_id = $apiStructure->structure_id;
                 $structure->type_id = $apiStructure->type_id;
@@ -58,6 +63,9 @@ class Structure extends Model
                     $structure->fuel_expires = new Carbon($apiStructure->fuel_expires);
                 }
                 $structure->save();
+
+                // Add Type data if required
+                Type::Add($structure->type_id);
 
                 // Update services
                 if (isset($apiStructure->services)) {
@@ -74,5 +82,29 @@ class Structure extends Model
         } catch (\Exception $e) {
             abort(403, 'You do not have the required roles within your corporation.');
         }
+    }
+
+    public function friendlyState() {
+        $states = [
+            "anchor_vulnerable" => "Anchoring - Vulnerable",
+            "anchoring" => "Anchoring",
+            "armor_reinforce" => "Armor - Reinforced",
+            "armor_vulnerable" => "Armor - Vulnerable",
+            "fitting_invulnerable" => "Fitting - Vulnerable",
+            "hull_reinforce" => "Hull - Reinforced",
+            "hull_vulnerable" => "Hull - Vulnerable",
+            "online_deprecated" => "Online",
+            "onlining_vulnerable" => "Onlining",
+            "shield_vulnerable" => "Online",
+            "unanchored" => "Unanchored",
+            "unknown" => "Oh God, even CCP doesn't know!"
+        ];
+
+        return $states[$this->state];
+    }
+
+    private static function removeSystemFromName($systemName){
+        $cleanedName = explode(' - ', $systemName, 2);
+        return $cleanedName[1];
     }
 }
