@@ -47,7 +47,7 @@ class Structure extends Model
                 $structure = Structure::firstOrNew(['structure_id' => $apiStructure->structure_id]);
                 $structure->structure_id = $apiStructure->structure_id;
                 $structure->type_id = $apiStructure->type_id;
-                $structure->corporation_id = $apiStructure->corporation_id;
+                $structure->corporation_id = $user->corporation->id;
                 $structure->system_id = $apiStructure->system_id;
                 $structure->profile_id = $apiStructure->profile_id;
                 $structure->reinforce_weekday = $apiStructure->reinforce_weekday;

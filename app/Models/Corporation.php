@@ -15,4 +15,8 @@ class Corporation extends Model
     public function members(){
         return $this->hasMany('App\Models\Auth\User', 'corporation_id', 'id');
     }
+
+    public function structures(){
+        return $this->hasMany('App\Models\Structure', 'corporation_id', 'id');
+    }
 }
