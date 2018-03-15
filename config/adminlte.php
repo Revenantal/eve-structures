@@ -111,14 +111,8 @@ return [
         'MAIN NAVIGATION',
         [
             'text'        => 'Structures',
-            'url'         => 'structures',
+            'url'         => '/',
             'icon'        => 'home'
-        ],
-        'ACCOUNT SETTINGS',
-        [
-            'text' => 'Profile',
-            'url'  => 'admin/settings',
-            'icon' => 'user',
         ]
     ],
 

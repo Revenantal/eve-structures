@@ -35,7 +35,13 @@
                                         <td>{{ $structure->friendlyState() }}</td>
                                         <td><img src="//image.eveonline.com/Corporation/{{ $structure->corporation->corporation_id }}_32.png"> {{ $structure->corporation->name }}</td>
                                         <td><img src="//image.eveonline.com/Alliance/{{ $structure->corporation->alliance->alliance_id }}_32.png"> {{ $structure->corporation->alliance->name }}</td>
-                                        <td>{{ $structure->fuel_expires }}</td>
+                                        <td>
+                                            @if ($structure->fuel_expires)
+                                                {{ $structure->fuel_expires }}
+                                            @else
+                                                <span class="text-danger">LOW POWER</span>
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
