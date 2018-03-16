@@ -26,6 +26,7 @@ class CreateStructuresTable extends Migration
             $table->string('name');
             $table->dateTime('fuel_expires')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

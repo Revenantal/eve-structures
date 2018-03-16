@@ -20,6 +20,7 @@ class CreateTypesTable extends Migration
             $table->text('name');
             $table->text('description');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

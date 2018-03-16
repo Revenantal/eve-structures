@@ -20,6 +20,7 @@ class CreateCorporationsTable extends Migration
             $table->string('name');
             $table->string('ticker');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

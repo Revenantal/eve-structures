@@ -3,13 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Auth\User;
+use App\Models\Corporation;
 use Conduit\Conduit;
 use Carbon\Carbon;
 use App\Models\EVE\Type;
 
 class Structure extends Model
 {
+    use SoftDeletes;
     protected $fillable =  [
         'structure_id',
         'type_id',
@@ -37,50 +40,44 @@ class Structure extends Model
         return $this->hasMany('App\Models\StructureService', 'structure_id');
     }
 
-    public static function UpdateStructures(User $user = null){
-        if (!$user) {
-            $user = auth()->user();
-        }
+    public static function UpdateStructures(Corporation $corp){
 
-        try {
-            $auth = new \Conduit\Authentication(env('EVEONLINE_CLIENT_ID'), env('EVEONLINE_CLIENT_SECRET'), $user->refresh_token);
-            $api = new Conduit($auth);
-            $apiStructures = $api->corporations($user->corporation->corporation_id)->structures()->get()->data;
+        $auth = new \Conduit\Authentication(env('EVEONLINE_CLIENT_ID'), env('EVEONLINE_CLIENT_SECRET'), $corp->getRefreshToken());
+        $api = new Conduit($auth);
+        $apiStructures = $api->corporations($corp->corporation_id)->structures()->get()->data;
 
-            foreach ($apiStructures as $apiStructure) {
-                $structureName = Structure::removeSystemFromName($api->universe()->structures($apiStructure->structure_id)->get()->data->name);
-                $structure = Structure::firstOrNew(['structure_id' => $apiStructure->structure_id]);
-                $structure->structure_id = $apiStructure->structure_id;
-                $structure->type_id = $apiStructure->type_id;
-                $structure->corporation_id = $user->corporation->id;
-                $structure->system_id = $apiStructure->system_id;
-                $structure->profile_id = $apiStructure->profile_id;
-                $structure->reinforce_weekday = $apiStructure->reinforce_weekday;
-                $structure->reinforce_hour = $apiStructure->reinforce_hour;
-                $structure->state = $apiStructure->state;
-                $structure->name = $structureName;
-                if (isset($apiStructure->fuel_expires)) {
-                    $structure->fuel_expires = new Carbon($apiStructure->fuel_expires);
-                }
-                $structure->save();
+        foreach ($apiStructures as $apiStructure) {
+            $structureName = Structure::removeSystemFromName($api->universe()->structures($apiStructure->structure_id)->get()->data->name);
+            $structure = Structure::firstOrNew(['structure_id' => $apiStructure->structure_id]);
+            $structure->structure_id = $apiStructure->structure_id;
+            $structure->type_id = $apiStructure->type_id;
+            $structure->corporation_id = $corp->id;
+            $structure->system_id = $apiStructure->system_id;
+            $structure->profile_id = $apiStructure->profile_id;
+            $structure->reinforce_weekday = $apiStructure->reinforce_weekday;
+            $structure->reinforce_hour = $apiStructure->reinforce_hour;
+            $structure->state = $apiStructure->state;
+            $structure->name = $structureName;
+            $structure->updated_at = Carbon::now();
+            if (isset($apiStructure->fuel_expires)) {
+                $structure->fuel_expires = new Carbon($apiStructure->fuel_expires);
+            }
+            $structure->save();
 
-                // Add Type data if required
-                Type::Add($structure->type_id);
+            // Add Type data if required
+            Type::Add($structure->type_id);
 
-                // Update services
-                if (isset($apiStructure->services)) {
-                    StructureService::where('structure_id', $structure->id)->delete();
-                    foreach ($apiStructure->services as $apiService) {
-                        $service = StructureService::firstOrNew(['name' => $apiService->name]);
-                        $service->structure_id = $structure->id;
-                        $service->name = $apiService->name;
-                        $service->state = $apiService->state;
-                        $service->save();
-                    }
+            // Update services
+            if (isset($apiStructure->services)) {
+                StructureService::where('structure_id', $structure->id)->delete();
+                foreach ($apiStructure->services as $apiService) {
+                    $service = StructureService::firstOrNew(['name' => $apiService->name]);
+                    $service->structure_id = $structure->id;
+                    $service->name = $apiService->name;
+                    $service->state = $apiService->state;
+                    $service->save();
                 }
             }
-        } catch (\Exception $e) {
-            abort(403, 'You do not have the required roles within your corporation.');
         }
     }
 
