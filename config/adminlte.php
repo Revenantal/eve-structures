@@ -108,11 +108,16 @@ return [
     */
 
     'menu' => [
-        'MAIN NAVIGATION',
+        'STRUCTURES',
         [
-            'text'        => 'Structures',
+            'text'        => 'Dashboard',
             'url'         => '/',
             'icon'        => 'home'
+        ],
+        [
+            'text'        => 'Calendar',
+            'url'         => '/calendar',
+            'icon'        => 'calendar'
         ]
     ],
 
@@ -150,6 +155,6 @@ return [
     'plugins' => [
         'datatables' => true,
         'select2'    => true,
-        'chartjs'    => true,
+        'chartjs'    => true
     ],
 ];
