@@ -1,0 +1,13 @@
+.fc-event {
+  border:0;
+  padding:5px;
+}
+
+.info-box-text {
+  margin-bottom:5px;
+}
+
+.btn[class*='bg-'].no-hover:hover {
+  cursor: default;
+  box-shadow:none;
+}

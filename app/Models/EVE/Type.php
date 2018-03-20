@@ -14,6 +14,11 @@ class Type extends Model
         'group_id'
     ];
 
+    public function group(){
+        return $this->belongsTo('App\Models\EVE\Group', 'group_id', 'group_id');
+    }
+
+
     static function add($type_ID) {
         $type = Type::firstOrNew(['type_id' => $type_ID]);
 
@@ -27,6 +32,11 @@ class Type extends Model
             $type->group_id = $apiType->group_id;
 
             $type->save();
+            Group::Add($type->group_id);
         }
+    }
+
+    public function cssClass() {
+        return str_replace(" ", "-",strtolower($this->name));
     }
 }

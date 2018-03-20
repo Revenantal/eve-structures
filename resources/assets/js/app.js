@@ -6,3 +6,10 @@
  */
 require('./bootstrap');
 window.fullCalendar = require('fullcalendar');
+
+// Vue
+window.Vue = require('vue');
+Vue.component('Countdown', require('./components/Countdown.vue'));
+const app = new Vue({
+    el: '#app'
+});

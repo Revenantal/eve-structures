@@ -2,6 +2,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\EVE\Group;
+use Auth;
+
 
 class HomeController extends Controller
 {
@@ -26,6 +29,14 @@ class HomeController extends Controller
 
     public function calendar()
     {
-        return view('calendar');
+        $data['structureGroups'] = Group::where('category_id', 65)->orderBy('name', 'asc')->get();
+
+        $data['upcomingStructures'] = Auth::user()->corporation->structures
+            ->filter(function($structure){
+                return $structure->fuel_expires != '';})
+            ->sortBy('fuel_expires')
+            ->take(10);
+
+        return view('calendar', $data);
     }
 }

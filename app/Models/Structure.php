@@ -4,8 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Auth\User;
-use App\Models\Corporation;
 use Conduit\Conduit;
 use Carbon\Carbon;
 use App\Models\EVE\Type;
