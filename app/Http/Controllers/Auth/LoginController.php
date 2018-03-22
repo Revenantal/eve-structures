@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Socialite;
 use Conduit\Conduit;
+use App\Jobs\GetCorpStructures;
 
 class LoginController extends Controller
 {
@@ -119,7 +120,11 @@ class LoginController extends Controller
                     'time-format' => '24',
                     'time-display' => 'eve'
                 ]);
+            }
 
+            // If Corp is new, Grab structures
+            if ($corporation->wasRecentlyCreated) {
+                $this->dispatch(new GetCorpStructures($corporation));
             }
 
             // and then log in
