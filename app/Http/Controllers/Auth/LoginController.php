@@ -111,6 +111,17 @@ class LoginController extends Controller
             }
             $user->save();
 
+            // If User is new, set default settings
+            if ($user->wasRecentlyCreated) {
+                $user->setSettings([
+                    'email-alerts' => 'False',
+                    'timezone' => 'GMT',
+                    'time-format' => '24',
+                    'time-display' => 'eve'
+                ]);
+
+            }
+
             // and then log in
             Auth::login($user, true);
 

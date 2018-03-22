@@ -118,6 +118,12 @@ return [
             'text'        => 'Calendar',
             'url'         => '/calendar',
             'icon'        => 'calendar'
+        ],
+        'SETTINGS',
+        [
+            'text'        => 'User Profile',
+            'url'         => '/profile',
+            'icon'        => 'user'
         ]
     ],
 

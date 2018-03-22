@@ -21,3 +21,7 @@ Route::group(['prefix' => 'auth'], function(){
 Route::get('/', 'HomeController@index');
 Route::get('/calendar', 'HomeController@calendar');
 
+Route::resource('/profile', 'ProfileController', ['only' => [
+    'index', 'update'
+]]);
+
