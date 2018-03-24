@@ -19,6 +19,7 @@ class Structure extends Model
         'reinforce_weekday',
         'reinforce_hour',
         'state',
+        'services',
         'name'
     ];
 
@@ -32,10 +33,6 @@ class Structure extends Model
 
     public function type(){
         return $this->belongsTo('App\Models\EVE\Type', 'type_id', 'type_id');
-    }
-
-    public function services(){
-        return $this->hasMany('App\Models\StructureService', 'structure_id');
     }
 
     public static function UpdateStructures(Corporation $corp){
@@ -57,6 +54,9 @@ class Structure extends Model
             $structure->state = $apiStructure->state;
             $structure->name = $structureName;
             $structure->updated_at = Carbon::now();
+            if (isset($apiStructure->services)) {
+                $structure->services = json_encode($apiStructure->services);
+            }
             if (isset($apiStructure->fuel_expires)) {
                 $structure->fuel_expires = new Carbon($apiStructure->fuel_expires);
             }
@@ -64,18 +64,6 @@ class Structure extends Model
 
             // Add Type data if required
             Type::Add($structure->type_id);
-
-            // Update services
-            if (isset($apiStructure->services)) {
-                StructureService::where('structure_id', $structure->id)->delete();
-                foreach ($apiStructure->services as $apiService) {
-                    $service = StructureService::firstOrNew(['name' => $apiService->name]);
-                    $service->structure_id = $structure->id;
-                    $service->name = $apiService->name;
-                    $service->state = $apiService->state;
-                    $service->save();
-                }
-            }
         }
     }
 

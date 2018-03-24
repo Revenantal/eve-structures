@@ -130,7 +130,6 @@ class LoginController extends Controller
             // and then log in
             Auth::login($user, true);
 
-            \Log::info('LOGGED IN');
             return redirect('/');
         } else {
             return view('denied');

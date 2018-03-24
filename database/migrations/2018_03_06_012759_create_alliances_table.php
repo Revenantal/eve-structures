@@ -14,7 +14,7 @@ class CreateAlliancesTable extends Migration
     public function up()
     {
         Schema::create('alliances', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->bigInteger('alliance_id');
             $table->string('name');
             $table->string('ticker');

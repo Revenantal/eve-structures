@@ -14,7 +14,7 @@ class CreateStructuresTable extends Migration
     public function up()
     {
         Schema::create('structures', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->bigInteger('structure_id');
             $table->integer('type_id');
             $table->bigInteger('corporation_id');
@@ -24,6 +24,7 @@ class CreateStructuresTable extends Migration
             $table->integer('reinforce_hour');
             $table->string('state');
             $table->string('name');
+            $table->json('services')->nullable();
             $table->dateTime('fuel_expires')->nullable();
             $table->timestamps();
             $table->softDeletes();
