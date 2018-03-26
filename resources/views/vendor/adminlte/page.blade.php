@@ -133,9 +133,20 @@
             </div>
             <!-- /.container -->
             @endif
+
         </div>
         <!-- /.content-wrapper -->
-
+        <footer class="main-footer">
+            <div class="status" data-toggle="tooltip" data-placement="top" title="HH:MM - DD:MM:YYYY">
+                <strong><i class="fa fa-clock-o" aria-hidden="true"></i> EVE Time:</strong> <span id="footer-evedatetime"></span>
+            </div>
+            <div class="status" data-toggle="tooltip" data-placement="top" title="HH:MM - DD:MM:YYYY (GMT OFFSET)">
+                <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Local Time:</strong> <span id="footer-localdatetime"></span>
+            </div>
+            <div class="status" data-toggle="tooltip" data-placement="top" title="Active Players">
+                <strong><i class="fa fa-users" aria-hidden="true"></i> Player Count:</strong> <span id="footer-playercount"></span>
+            </div>
+        </footer>
     </div>
     <!-- ./wrapper -->
 @stop

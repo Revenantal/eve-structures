@@ -19,7 +19,7 @@
                         <div class="info-box">
                             <span class="info-box-icon bg-{{ $structure->type->group->cssColor() }}"><i class="fa {{ $structure->type->group->faIcon() }}"></i></span>
                             <div class="info-box-content">
-                                <span class="info-box-text"><strong><countdown date="{{ $structure->fuel_expires }}"></countdown></strong> of Fuel Remaining</span>
+                                <span class="info-box-text"><strong><countdown data-color-date="{{ $structure->fuel_expires }}" date="{{ $structure->fuel_expires }}"></countdown></strong> of Fuel Remaining</span>
                                 <span class="info-box-number">
                                     <img style="margin-right:5px;" src="//image.eveonline.com/Corporation/{{ $structure->corporation->corporation_id }}_32.png">
                                     @if ($structure->corporation->alliance)

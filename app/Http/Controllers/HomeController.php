@@ -39,4 +39,9 @@ class HomeController extends Controller
 
         return view('calendar', $data);
     }
+
+    public function table()
+    {
+        return view('table');
+    }
 }

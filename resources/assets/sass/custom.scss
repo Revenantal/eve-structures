@@ -1,8 +1,19 @@
+body, h1, h2, h3, h4, h5, h6, p {
+  font-family: 'Open Sans', sans-serif;
+}
+
+// DATATABLE OVERRIDES
+table.dataTable>tbody>tr.child ul.dtr-details {
+  width:100%;
+}
+
+// FULL CALENDER OVERRIDES
 .fc-event {
   border:0;
   padding:5px;
 }
 
+// BOOTSTRAP OVERRIDES
 .info-box-text {
   margin-bottom:5px;
 }
@@ -10,4 +21,21 @@
 .btn[class*='bg-'].no-hover:hover {
   cursor: default;
   box-shadow:none;
+}
+
+// CUSTOM
+footer .status {
+  display:inline-block;
+}
+
+footer .status ~ .status {
+  margin-left:15px;
+}
+
+@media (max-width: 767px) {
+  footer .status {
+    display:block;
+    text-align:center;
+    margin:0;
+  }
 }

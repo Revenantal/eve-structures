@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => '',
 
     'logout_url' => 'auth/logout',
 
@@ -110,14 +110,14 @@ return [
     'menu' => [
         'STRUCTURES',
         [
-            'text'        => 'Dashboard',
-            'url'         => '/',
-            'icon'        => 'home'
-        ],
-        [
             'text'        => 'Calendar',
             'url'         => '/calendar',
             'icon'        => 'calendar'
+        ],
+        [
+            'text'        => 'Table',
+            'url'         => '/table',
+            'icon'        => 'table'
         ],
         'SETTINGS',
         [
