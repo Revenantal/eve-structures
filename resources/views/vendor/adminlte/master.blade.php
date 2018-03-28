@@ -15,8 +15,6 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="{{ asset('vendor/adminlte/vendor/Ionicons/css/ionicons.min.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
-
     @if(config('adminlte.plugins.select2'))
         <!-- Select2 -->
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css">
@@ -31,6 +29,7 @@
         <link rel="stylesheet" href="//cdn.datatables.net/responsive/2.2.1/css/responsive.dataTables.min.css">
     @endif
 
+    <link rel="stylesheet" href="{{ asset('/css/app.css') }}">
     @yield('adminlte_css')
 
     <!--[if lt IE 9]>
@@ -75,7 +74,7 @@
 
 @if(config('adminlte.plugins.chartjs'))
     <!-- ChartJS -->
-    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.bundle.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
 @endif
 
 @yield('adminlte_js')

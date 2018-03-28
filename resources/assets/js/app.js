@@ -16,8 +16,8 @@ const app = new Vue({
 });
 
 $(function() {
-    updateFooterTime();
-    updateFooterPlayerCount();
+    updateSystemTimes();
+    updatePlayerCount();
     setColorDates();
 
     // Enable Tooltips
@@ -25,20 +25,20 @@ $(function() {
 
     // Update Footer time every 5 seconds
     setInterval(function(){
-        updateFooterTime();
+        updateSystemTimes();
     }, 5000);
 
-    function updateFooterTime() {
-        document.getElementById('footer-evedatetime').innerHTML = moment().utc().format('HH:mm - DD/MM/YYYY');
-        document.getElementById('footer-localdatetime').innerHTML = moment().format('HH:mm - DD/MM/YYYY (Z [GMT])');
+    function updateSystemTimes() {
+        $('.evedatetime').html(moment().utc().format('HH:mm - DD/MM/YYYY'));
+        $('.localdatetime').html(moment().format('HH:mm - DD/MM/YYYY (Z [GMT])'));
     }
 
-    function updateFooterPlayerCount() {
+    function updatePlayerCount() {
         $.ajax({
             url: "https://esi.tech.ccp.is/latest/status/",
         })
         .done(function( data ) {
-            document.getElementById('footer-playercount').innerHTML = data.players;
+            $('.playercount').html(data.players);
         });
     }
 

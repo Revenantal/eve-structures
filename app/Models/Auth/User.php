@@ -48,4 +48,12 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Setting', 'user_id');
     }
 
+    /**
+     *  Returns a collection of all structures this user is allowed to view.
+     */
+    public function getStructures() {
+        return $this->corporation->structures;
+    }
+
+
 }

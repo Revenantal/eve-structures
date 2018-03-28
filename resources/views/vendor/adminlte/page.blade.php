@@ -137,14 +137,14 @@
         </div>
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-            <div class="status" data-toggle="tooltip" data-placement="top" title="HH:MM - DD:MM:YYYY">
-                <strong><i class="fa fa-clock-o" aria-hidden="true"></i> EVE Time:</strong> <span id="footer-evedatetime"></span>
+            <div class="status" data-toggle="tooltip" data-placement="top" title="HH:MM - DD/MM/YYYY">
+                <strong><i class="fa fa-clock-o" aria-hidden="true"></i> EVE Time:</strong> <span class="evedatetime"></span>
             </div>
-            <div class="status" data-toggle="tooltip" data-placement="top" title="HH:MM - DD:MM:YYYY (GMT OFFSET)">
-                <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Local Time:</strong> <span id="footer-localdatetime"></span>
+            <div class="status" data-toggle="tooltip" data-placement="top" title="HH:MM - DD/MM/YYYY (GMT OFFSET)">
+                <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Local Time:</strong> <span class="localdatetime"></span>
             </div>
             <div class="status" data-toggle="tooltip" data-placement="top" title="Active Players">
-                <strong><i class="fa fa-users" aria-hidden="true"></i> Player Count:</strong> <span id="footer-playercount"></span>
+                <strong><i class="fa fa-users" aria-hidden="true"></i> Player Count:</strong> <span class="playercount"></span>
             </div>
         </footer>
     </div>

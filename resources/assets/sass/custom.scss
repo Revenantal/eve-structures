@@ -7,10 +7,18 @@ table.dataTable>tbody>tr.child ul.dtr-details {
   width:100%;
 }
 
+table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+  background-color:#dedede;
+}
+
 // FULL CALENDER OVERRIDES
 .fc-event {
   border:0;
   padding:5px;
+}
+
+.fc-unthemed td.fc-today {
+  background: rgba(34, 45, 50, 0.26);
 }
 
 // BOOTSTRAP OVERRIDES
@@ -30,6 +38,23 @@ footer .status {
 
 footer .status ~ .status {
   margin-left:15px;
+}
+
+.box-header {
+  background-color: #222d32;
+  color: white;
+}
+
+.btn-box-tool {
+  color:white;
+}
+
+.content-wrapper {
+  background-color:rgb(222, 225, 226);
+}
+
+.box {
+  border-top-color: #222d32;
 }
 
 @media (max-width: 767px) {

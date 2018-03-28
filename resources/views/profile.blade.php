@@ -8,7 +8,13 @@
     <div class="row">
         <div class="col-md-3">
             <!-- Profile Image -->
-            <div class="box box-primary">
+            <div class="box">
+                <div class="box-header">
+                    <h2 class="box-title">User Profile</h2>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    </div>
+                </div>
                 <div class="box-body box-profile">
                     <img class="profile-user-img img-responsive img-circle" src="//image.eveonline.com/Character/{{Auth::user()->character_id}}_128.jpg" alt="User profile picture">
                     <h3 class="profile-username text-center">{{Auth::user()->character_name}}</h3>
@@ -29,7 +35,7 @@
             <!-- /.box -->
         </div>
         <div class="col-md-9">
-            <div class="box box-primary">
+            <div class="box">
                 <div class="box-header">
                     <h2 class="box-title">User Settings</h2>
                     <div class="box-tools pull-right">

@@ -5,7 +5,7 @@
 @stop
 
 @section('content')
-    <div class="box box-primary">
+    <div class="box">
         <div class="box-header">
             <h3 class="box-title">Structure Table</h3>
         </div>
@@ -14,7 +14,7 @@
             <div class="dataTables_wrapper form-inline dt-bootstrap">
                 <div class="row">
                     <div class="col-sm-12">
-                        <table id="example" class="table table-striped table-bordered dataTable" style="width:100%;">
+                        <table id="example" class="table table-striped table-bordered dataTable hover" style="width:100%;">
                             <thead>
                             <tr>
                                 <th>Name</th>
