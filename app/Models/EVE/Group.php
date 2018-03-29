@@ -53,11 +53,11 @@ class Group extends Model
                 return "fa-industry";
                 break;
             case "Citadel":
-                return "fa-shield";
+                return "fa-shield-alt";
                 break;
 
             case "Refinery":
-                return "fa-gears";
+                return "fa-cogs";
                 break;
         }
     }

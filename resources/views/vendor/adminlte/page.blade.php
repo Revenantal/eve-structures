@@ -26,7 +26,7 @@
                             {!! config('adminlte.logo', '<b>Admin</b>LTE') !!}
                         </a>
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
-                            <i class="fa fa-bars"></i>
+                            <i class="fas fa-bars"></i>
                         </button>
                     </div>
 
@@ -50,6 +50,7 @@
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <i class="fas fa-bars"></i>
                     <span class="sr-only">{{ trans('adminlte::adminlte.toggle_navigation') }}</span>
                 </a>
             @endif
@@ -106,6 +107,14 @@
                     @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
                 </ul>
                 <!-- /.sidebar-menu -->
+                <div class="social">
+                    <a href="//discord.gg/j6jy5E9" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Join us on Discord!">
+                        <i class="fab fa-fw fa-discord"></i>
+                    </a>
+                    <a href="//github.com/revenantal/eve-structures" target="_blank" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="Checkout the source!">
+                        <i class="fab fa-fw fa-github"></i>
+                    </a>
+                </div>
             </section>
             <!-- /.sidebar -->
         </aside>
@@ -138,10 +147,10 @@
         <!-- /.content-wrapper -->
         <footer class="main-footer">
             <div class="status" data-toggle="tooltip" data-placement="top" title="HH:MM - DD/MM/YYYY">
-                <strong><i class="fa fa-clock-o" aria-hidden="true"></i> EVE Time:</strong> <span class="evedatetime"></span>
+                <strong><i class="fa fa-clock" aria-hidden="true"></i> EVE Time:</strong> <span class="evedatetime"></span>
             </div>
             <div class="status" data-toggle="tooltip" data-placement="top" title="HH:MM - DD/MM/YYYY (GMT OFFSET)">
-                <strong><i class="fa fa-clock-o" aria-hidden="true"></i> Local Time:</strong> <span class="localdatetime"></span>
+                <strong><i class="fa fa-clock" aria-hidden="true"></i> Local Time:</strong> <span class="localdatetime"></span>
             </div>
             <div class="status" data-toggle="tooltip" data-placement="top" title="Active Players">
                 <strong><i class="fa fa-users" aria-hidden="true"></i> Player Count:</strong> <span class="playercount"></span>

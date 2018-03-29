@@ -53,6 +53,16 @@ footer .status ~ .status {
   background-color:rgb(222, 225, 226);
 }
 
+.sidebar .social {
+  font-size: 22px;
+  text-align: center;
+  padding: 10px;
+}
+
+.main-header .sidebar-toggle:before {
+  display:none;
+}
+
 .box {
   border-top-color: #222d32;
 }
