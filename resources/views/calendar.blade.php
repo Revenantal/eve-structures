@@ -75,7 +75,8 @@
                         title : '{{ $structure->name }}',
                         start : '{{ $structure->fuel_expires }}',
                         className : 'bg-{{ $structure->type->group->cssColor() }}',
-                        allDay: false
+                        allDay: false,
+                        url: '/structures/{{ $structure->structure_id }}'
                     },
                     @endforeach
                 ]

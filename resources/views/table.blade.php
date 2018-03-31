@@ -31,7 +31,7 @@
                             <tbody>
                             @foreach (Auth::user()->corporation->structures as $structure)
                                 <tr>
-                                    <td>{{ $structure->name }}</td>
+                                    <td><a href="/structures/{{ $structure->structure_id }}">{{ $structure->name }}</a></td>
                                     <td>
                                         <a href="//evemaps.dotlan.net/map/{{ $structure->system->region->name }}/{{ $structure->system->name }}" data-toggle="tooltip" data-placement="top" title="View on Dotlan" target="_blank">{{ $structure->system->name }}</a>
                                         [{{$structure->system->secStatus()}}]

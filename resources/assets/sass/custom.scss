@@ -45,7 +45,8 @@ footer .status ~ .status {
   color: white;
 }
 
-.btn-box-tool {
+.btn-box-tool,
+.btn.focus.btn-box-tool, .btn.btn-box-tool:focus, .btn.btn-box-tool:hover {
   color:white;
 }
 
