@@ -15,7 +15,7 @@ class StructureController extends Controller
      */
     public function index()
     {
-        $structures = Auth::user()->getStructures()->sortBy('fuel_expires');
+        $structures = Auth::user()->getStructures();
         $data['structures'] = $structures;
         $data['regions'] = [];
         $data['systems'] = [];
@@ -64,6 +64,19 @@ class StructureController extends Controller
     }
 
     /**
+     * Display a listing of all the structure reinforcement times.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function reinforcement()
+    {
+        $structures = Auth::user()->getStructures();
+        $data['structures'] = $structures;
+
+        return view('reinforcement', $data);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -92,10 +105,7 @@ class StructureController extends Controller
      */
     public function show($id)
     {
-        //dd(Auth::user()->getStructures());
-
         $structure = Auth::user()->getStructures()->firstWhere('structure_id', $id);
-
         if ($structure) {
             $data['structure'] = $structure;
             $data['services'] = json_decode($data['structure']->services);
@@ -103,8 +113,6 @@ class StructureController extends Controller
         } else {
             dd ('Did I say you can view this? Go away spy.');
         }
-
-
     }
 
     /**

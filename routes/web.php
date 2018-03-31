@@ -29,6 +29,7 @@ Route::resource('/profile', 'ProfileController', ['only' => [
 Route::resource('structures', 'StructureController')->only([
     'index', 'show'
 ]);
+Route::get('/reinforcement', 'StructureController@reinforcement');
 
 
 

@@ -90,4 +90,14 @@ class Structure extends Model
         $cleanedName = explode(' - ', $systemName, 2);
         return $cleanedName[1];
     }
+
+    /*
+     * Returns start of structure reinforcement window for this week
+     */
+    public function reinforcementWindow() {
+        $day = date('w');
+        $structure_reinforcement['start'] = date('Y-m-d H', strtotime("-{$day} days +{$this->reinforce_weekday} days +1 day +{$this->reinforce_hour} hours -2 hours"));
+        $structure_reinforcement['end'] = date('Y-m-d H', strtotime("-{$day} days +{$this->reinforce_weekday} days +1 day +{$this->reinforce_hour} hours +2 hours"));
+        return $structure_reinforcement;
+    }
 }

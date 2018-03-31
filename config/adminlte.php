@@ -124,6 +124,11 @@ return [
             'url'         => '/table',
             'icon'        => 'table'
         ],
+        [
+            'text'        => 'Reinforcement Schedule',
+            'url'         => '/reinforcement',
+            'icon'        => 'unlock'
+        ],
         'SETTINGS',
         [
             'text'        => 'User Profile',
