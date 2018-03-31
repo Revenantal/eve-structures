@@ -26,3 +26,9 @@ Route::resource('/profile', 'ProfileController', ['only' => [
     'index', 'update'
 ]]);
 
+Route::resource('structures', 'StructureController')->only([
+    'index', 'show'
+]);
+
+
+

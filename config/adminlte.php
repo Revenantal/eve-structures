@@ -110,6 +110,11 @@ return [
     'menu' => [
         'STRUCTURES',
         [
+            'text'        => 'Structures',
+            'url'         => '/structures',
+            'icon'        => 'building'
+        ],
+        [
             'text'        => 'Calendar',
             'url'         => '/calendar',
             'icon'        => 'calendar'
