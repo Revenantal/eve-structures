@@ -1,0 +1,109 @@
+body, h1, h2, h3, h4, h5, h6, p {
+  font-family: 'Open Sans', sans-serif;
+}
+
+// DATATABLE OVERRIDES
+table.dataTable>tbody>tr.child ul.dtr-details {
+  width:100%;
+}
+
+table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+  background-color:#dedede;
+}
+
+// FULL CALENDER OVERRIDES
+.fc-event {
+  border:0;
+  padding:5px;
+}
+
+.fc-unthemed td.fc-today {
+  background: rgba(34, 45, 50, 0.26);
+}
+
+// BOOTSTRAP OVERRIDES
+.info-box-text {
+  margin-bottom:5px;
+}
+
+.btn[class*='bg-'].no-hover:hover {
+  cursor: default;
+  box-shadow:none;
+}
+
+// CUSTOM
+footer .status {
+  display:inline-block;
+}
+
+footer .status ~ .status {
+  margin-left:15px;
+}
+
+.box-header {
+  background-color: #222d32;
+  color: white;
+}
+
+.btn-box-tool,
+.btn.focus.btn-box-tool, .btn.btn-box-tool:focus, .btn.btn-box-tool:hover {
+  color:white;
+}
+
+.content-wrapper {
+  background-color:rgb(222, 225, 226);
+}
+
+.sidebar .social {
+  font-size: 22px;
+  text-align: center;
+  padding: 10px;
+}
+
+.main-header .sidebar-toggle:before {
+  display:none;
+}
+
+.box {
+  border-top-color: #222d32;
+}
+
+.form-control {
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+  box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+}
+
+.widget-user-2.structure .widget-user-username {
+  margin-top:0;
+}
+
+.sort-by-button {
+  cursor: pointer
+}
+
+.sort-by-button i {
+  color:#ccc;
+}
+
+.sort-by-button.active i {
+  color:#222d32;
+}
+
+.info-box.structure a,
+.info-box.structure a:hover
+.info-box.structure a:active {
+  color:inherit;
+}
+
+@media (max-width: 767px) {
+  footer .status {
+    display:block;
+    text-align:center;
+    margin:0;
+  }
+
+  .row.structures .element-item.col-sm-12 {
+    width:100%;
+  }
+}

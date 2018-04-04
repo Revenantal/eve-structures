@@ -11,6 +11,25 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Auth Routing
+Route::group(['prefix' => 'auth'], function(){
+    Route::get('/login', ['as' => 'login', 'uses' => 'Auth\LoginController@login']);
+    Route::get('/callback', ['as' => 'callback', 'uses' => 'Auth\LoginController@callback']);
+    Route::post('/logout', ['as' => 'logout', 'uses' => 'Auth\LoginController@logout']);
 });
+
+Route::get('/', 'HomeController@index');
+Route::get('/table', 'HomeController@table');
+Route::get('/calendar', 'HomeController@calendar');
+
+Route::resource('/profile', 'ProfileController', ['only' => [
+    'index', 'update'
+]]);
+
+Route::resource('structures', 'StructureController')->only([
+    'index', 'show'
+]);
+Route::get('/reinforcement', 'StructureController@reinforcement');
+
+
+
