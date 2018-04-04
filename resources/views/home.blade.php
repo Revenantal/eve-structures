@@ -144,16 +144,16 @@
                         </div>
                         <div class="box-body">
                             @foreach ($upcomingStructures as $structure)
-                                <div class="info-box">
+                                <div class="info-box structure">
                                     <span class="info-box-icon bg-{{ $structure->type->group->cssColor() }}"><i class="fa {{ $structure->type->group->faIcon() }}"></i></span>
                                     <div class="info-box-content">
                                         <span class="info-box-text"><strong><countdown data-color-date="{{ $structure->fuel_expires }}" date="{{ $structure->fuel_expires }}"></countdown></strong> of Fuel Remaining</span>
                                         <span class="info-box-number">
-                                        <img style="margin-right:5px;" src="//image.eveonline.com/Corporation/{{ $structure->corporation->corporation_id }}_32.png">
+                                            <img style="margin-right:5px;" src="//image.eveonline.com/Corporation/{{ $structure->corporation->corporation_id }}_32.png">
                                             @if ($structure->corporation->alliance)
                                                 <img style="margin-right:5px;" src="//image.eveonline.com/Alliance/{{ $structure->corporation->alliance->alliance_id }}_32.png">
                                             @endif
-                                            {{ $structure->name }}
+                                            <a href="/structures/{{ $structure->structure_id }}">{{ $structure->name }}</a>
                                         </span>
                                     </div>
                                 </div>
@@ -187,7 +187,6 @@
             data: {
                 labels: labels,
                 datasets: [{
-                    label: '# of Votes',
                     data: data,
                     backgroundColor: [
                         'rgba(255, 99, 132, 1)',
@@ -218,7 +217,6 @@
             data: {
                 labels: labels,
                 datasets: [{
-                    label: '# of Votes',
                     data: data,
                     backgroundColor: [
                         '#dd4b39',
@@ -246,7 +244,6 @@
             data: {
                 labels: labels,
                 datasets: [{
-                    label: '# of Votes',
                     data: data,
                     backgroundColor: [
                         '#00a65a',
@@ -270,7 +267,8 @@
                     title : '{{ $structure->name }}',
                     start : '{{ $structure->fuel_expires }}',
                     className : 'bg-{{ $structure->type->group->cssColor() }}',
-                    allDay: false
+                    allDay: false,
+                    url: '/structures/{{ $structure->structure_id }}'
                 },
                 @endforeach
             ]

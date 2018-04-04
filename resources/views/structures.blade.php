@@ -128,7 +128,7 @@
         </div>
     </div>
 
-    <div class="row eq-heights structures">
+    <div class="row structures">
         @foreach ($structures as $structure)
             <div class="col-lg-3 col-md-6 col-sm-12 element-item
                     region-{{ str_replace(' ', '-', strtolower($structure->system->region->name)) }}

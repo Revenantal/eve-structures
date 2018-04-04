@@ -101,24 +101,10 @@ footer .status ~ .status {
   color: #222d32;
 }
 
-@media (min-width: 767px) {
-  .row.eq-heights {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-  }
-
-  .row.eq-heights > [class*='col-'] {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-  }
+.info-box.structure a,
+.info-box.structure a:hover
+.info-box.structure a:active {
+  color: inherit;
 }
 
 @media (max-width: 767px) {
@@ -126,6 +112,10 @@ footer .status ~ .status {
     display: block;
     text-align: center;
     margin: 0;
+  }
+
+  .row.structures .element-item.col-sm-12 {
+    width: 100%;
   }
 }
 

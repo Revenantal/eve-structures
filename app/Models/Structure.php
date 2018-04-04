@@ -56,9 +56,14 @@ class Structure extends Model
             $structure->updated_at = Carbon::now();
             if (isset($apiStructure->services)) {
                 $structure->services = json_encode($apiStructure->services);
+            } else {
+                $structure->services = null;
             }
+
             if (isset($apiStructure->fuel_expires)) {
                 $structure->fuel_expires = new Carbon($apiStructure->fuel_expires);
+            } else {
+                $structure->fuel_expires = null;
             }
             $structure->save();
 
@@ -96,8 +101,10 @@ class Structure extends Model
      */
     public function reinforcementWindow() {
         $day = date('w');
-        $structure_reinforcement['start'] = date('Y-m-d H', strtotime("-{$day} days +{$this->reinforce_weekday} days +1 day +{$this->reinforce_hour} hours -2 hours"));
-        $structure_reinforcement['end'] = date('Y-m-d H', strtotime("-{$day} days +{$this->reinforce_weekday} days +1 day +{$this->reinforce_hour} hours +2 hours"));
+        $hour = date('h');
+        $structure_reinforcement['start'] = date('Y-m-d H', strtotime("-{$day} days +{$this->reinforce_weekday} days +1 day +{$this->reinforce_hour} hours -2 hours -{$hour} hours"));
+        $structure_reinforcement['end'] = date('Y-m-d H', strtotime("-{$day} days +{$this->reinforce_weekday} days +1 day +{$this->reinforce_hour} hours +2 hours -{$hour} hours"));
+
         return $structure_reinforcement;
     }
 }

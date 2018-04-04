@@ -90,19 +90,10 @@ footer .status ~ .status {
   color:#222d32;
 }
 
-@media (min-width: 767px) {
-  .row.eq-heights {
-    display: -webkit-box;
-    display: -webkit-flex;
-    display: -ms-flexbox;
-    display:         flex;
-    flex-wrap: wrap;
-  }
-
-  .row.eq-heights > [class*='col-'] {
-    display: flex;
-    flex-direction: column;
-  }
+.info-box.structure a,
+.info-box.structure a:hover
+.info-box.structure a:active {
+  color:inherit;
 }
 
 @media (max-width: 767px) {
@@ -110,5 +101,9 @@ footer .status ~ .status {
     display:block;
     text-align:center;
     margin:0;
+  }
+
+  .row.structures .element-item.col-sm-12 {
+    width:100%;
   }
 }

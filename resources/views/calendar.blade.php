@@ -16,7 +16,7 @@
                 </div>
                 <div class="box-body">
                     @foreach ($upcomingStructures as $structure)
-                        <div class="info-box">
+                        <div class="info-box structure">
                             <span class="info-box-icon bg-{{ $structure->type->group->cssColor() }}"><i class="fa {{ $structure->type->group->faIcon() }}"></i></span>
                             <div class="info-box-content">
                                 <span class="info-box-text"><strong><countdown data-color-date="{{ $structure->fuel_expires }}" date="{{ $structure->fuel_expires }}"></countdown></strong> of Fuel Remaining</span>
@@ -25,7 +25,7 @@
                                     @if ($structure->corporation->alliance)
                                         <img style="margin-right:5px;" src="//image.eveonline.com/Alliance/{{ $structure->corporation->alliance->alliance_id }}_32.png">
                                     @endif
-                                    {{ $structure->name }}
+                                    <a href="/structures/{{ $structure->structure_id }}">{{ $structure->name }}</a>
                                 </span>
                             </div>
                         </div>
