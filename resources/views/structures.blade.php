@@ -69,9 +69,11 @@
                                                     <label for="ddlAlliance" class="sort-by-button" data-sort-value="alliance">Alliance <i class="fas fa-sort-alpha-down"></i></label>
                                                     <select multiple id="ddlAlliance" name="ddlAlliance" class="form-control filters-select">
                                                         <option selected value="">All</option>
-                                                        @foreach ($alliances as $alliance)
-                                                            <option value=".alliance-{{ str_replace(' ', '-', strtolower($alliance->name)) }}">{{ $alliance->name }}</option>
-                                                        @endforeach
+                                                        @if (!$alliances->isEmpty())
+                                                            @foreach ($alliances as $alliance)
+                                                                <option value=".alliance-{{ str_replace(' ', '-', strtolower($alliance->name)) }}">{{ $alliance->name }}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                             </div>
@@ -134,7 +136,9 @@
                     region-{{ str_replace(' ', '-', strtolower($structure->system->region->name)) }}
                     system-{{ str_replace(' ', '-', strtolower($structure->system->name)) }}
                     corporation-{{ str_replace(' ', '-', strtolower($structure->corporation->name)) }}
-                    alliance-{{ str_replace(' ', '-', strtolower($structure->corporation->alliance->name)) }}
+                    @if ($structure->corporation->alliance)
+                        alliance-{{ str_replace(' ', '-', strtolower($structure->corporation->alliance->name)) }}
+                    @endif
                     group-{{ str_replace(' ', '-', strtolower($structure->type->group->name)) }}
                     type-{{ str_replace(' ', '-', strtolower($structure->type->name)) }}
                     @if($structure->fuel_expires) {{"status-fueled"}} @else {{"status-low"}} @endif">
@@ -150,13 +154,17 @@
                         <h3 class="widget-user-username">{{ $structure->name }}</h3>
                         <h5 class="widget-user-desc">
                             <img class="bg-gray-light img-rounded" src="//image.eveonline.com/Corporation/{{ $structure->corporation->corporation_id }}_32.png" alt="Corporation Icon" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ $structure->corporation->name }}">
-                            <img class="bg-gray-light img-rounded" src="//image.eveonline.com/Alliance/{{ $structure->corporation->alliance->alliance_id }}_32.png" alt="Alliance Icon" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ $structure->corporation->alliance->name }}">
+                            @if ($structure->corporation->alliance)
+                                <img class="bg-gray-light img-rounded" src="//image.eveonline.com/Alliance/{{ $structure->corporation->alliance->alliance_id }}_32.png" alt="Alliance Icon" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ $structure->corporation->alliance->name }}">
+                            @endif
                         </h5>
                     </div>
                     <div class="box-body">
                         <div class="table-responsive">
                             <div class="hidden corporation">{{ $structure->corporation->name }}</div>
-                            <div class="hidden alliance">{{ $structure->corporation->alliance->name }}</div>
+                            @if ($structure->corporation->alliance)
+                                <div class="hidden alliance">{{ $structure->corporation->alliance->name }}</div>
+                            @endif
                             <table class="table no-margin">
                                 <tbody>
                                     <tr>

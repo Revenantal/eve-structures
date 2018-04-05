@@ -40,7 +40,11 @@
                                     <td>{{ $structure->type->name }}</td>
                                     <td>{{ $structure->friendlyState() }}</td>
                                     <td><img src="//image.eveonline.com/Corporation/{{ $structure->corporation->corporation_id }}_32.png"> {{ $structure->corporation->name }}</td>
-                                    <td><img src="//image.eveonline.com/Alliance/{{ $structure->corporation->alliance->alliance_id }}_32.png"> {{ $structure->corporation->alliance->name }}</td>
+                                    <td>
+                                        @if ($structure->corporation->alliance)
+                                            <img src="//image.eveonline.com/Alliance/{{ $structure->corporation->alliance->alliance_id }}_32.png"> {{ $structure->corporation->alliance->name }}
+                                        @endif
+                                    </td>
                                     <td data-color-date="{{ $structure->fuel_expires }}" data-color-date-element="bg">
                                         <strong>
                                             @if ($structure->fuel_expires)

@@ -17,7 +17,9 @@
                     <h3 class="widget-user-username">{{ $structure->name }}</h3>
                     <h5 class="widget-user-desc">
                         <img class="bg-gray-light img-rounded" src="//image.eveonline.com/Corporation/{{ $structure->corporation->corporation_id }}_32.png" alt="Corporation Icon" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ $structure->corporation->name }}">
-                        <img class="bg-gray-light img-rounded" src="//image.eveonline.com/Alliance/{{ $structure->corporation->alliance->alliance_id }}_32.png" alt="Alliance Icon" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ $structure->corporation->alliance->name }}">
+                        @if ($structure->corporation->alliance)
+                            <img class="bg-gray-light img-rounded" src="//image.eveonline.com/Alliance/{{ $structure->corporation->alliance->alliance_id }}_32.png" alt="Alliance Icon" data-placement="bottom" data-toggle="tooltip" data-original-title="{{ $structure->corporation->alliance->name }}">
+                        @endif
                     </h5>
                 </div>
                 <div class="box-body">

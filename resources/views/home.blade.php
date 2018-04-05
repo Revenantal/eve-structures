@@ -45,9 +45,11 @@
                         <li class="list-group-item">
                             <b>Corporation</b> <span class="pull-right">{{Auth::user()->corporation->name}}</span>
                         </li>
-                        <li class="list-group-item">
-                            <b>Alliance</b> <span class="pull-right">{{Auth::user()->alliance->name}}</span>
-                        </li>
+                        @if (Auth::user()->alliance)
+                            <li class="list-group-item">
+                                <b>Alliance</b> <span class="pull-right">{{Auth::user()->alliance->name}}</span>
+                            </li>
+                        @endif
                         <li class="list-group-item">
                             <b>Signed Up</b> <span class="pull-right">{{Auth::user()->created_at}}</span>
                         </li>
@@ -66,9 +68,11 @@
                     <img class="profile-user-img img-responsive img-circle" src="//image.eveonline.com/Corporation/{{Auth::user()->corporation->corporation_id}}_128.png" alt="Corporation Logo">
                     <h3 class="profile-username text-center">{{Auth::user()->corporation->name}}</h3>
                     <ul class="list-group list-group-unbordered">
-                        <li class="list-group-item">
-                            <b>Alliance</b> <span class="pull-right">{{Auth::user()->alliance->name}}</span>
-                        </li>
+                        @if (Auth::user()->alliance)
+                            <li class="list-group-item">
+                                <b>Alliance</b> <span class="pull-right">{{Auth::user()->alliance->name}}</span>
+                            </li>
+                        @endif
                         <li class="list-group-item">
                             <b>Total Structures</b> <span class="pull-right">{{count(Auth::user()->corporation->structures)}}</span>
                         </li>

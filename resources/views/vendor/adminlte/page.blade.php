@@ -98,7 +98,11 @@
                     </div>
                     <div class="pull-left info">
                         <p>{{ Auth::user()->character_name }}<br>
-                        <small>[{{ Auth::user()->corporation->ticker }}] &lt;{{ Auth::user()->alliance->ticker }}&gt;</small></p>
+                        <small>[{{ Auth::user()->corporation->ticker }}]
+                            @if (Auth::user()->alliance)
+                                &lt;{{ Auth::user()->alliance->ticker }}&gt;
+                            @endif
+                        </small></p>
                     </div>
                 </div>
 

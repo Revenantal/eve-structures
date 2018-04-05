@@ -40,7 +40,7 @@ class StructureController extends Controller
                 $data['corporations'][] = $structure->corporation;
             }
 
-            if (!in_array($structure->corporation->alliance, $data['alliances'])) {
+            if (!in_array($structure->corporation->alliance, $data['alliances']) && $structure->corporation->alliance) {
                 $data['alliances'][] = $structure->corporation->alliance;
             }
 
