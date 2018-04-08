@@ -41,7 +41,6 @@ class UpdateStructures extends Command
     public function handle()
     {
         \Log::info('Updating structures.');
-        try {
 
             $start = new Carbon();
 
@@ -54,10 +53,6 @@ class UpdateStructures extends Command
             Structure::where('updated_at', '<', $start)->delete();
 
             \Log::info('Structure update complete.');
-
-        } catch (\Exception $e) {
-            \Log::info('Structure update failed:' . $e);
-        }
 
     }
 }

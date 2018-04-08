@@ -37,38 +37,43 @@ class Structure extends Model
 
     public static function UpdateStructures(Corporation $corp){
 
-        $auth = new \Conduit\Authentication(env('EVEONLINE_CLIENT_ID'), env('EVEONLINE_CLIENT_SECRET'), $corp->getRefreshToken());
-        $api = new Conduit($auth);
-        $apiStructures = $api->corporations($corp->corporation_id)->structures()->get()->data;
+        try {
+            $auth = new \Conduit\Authentication(env('EVEONLINE_CLIENT_ID'), env('EVEONLINE_CLIENT_SECRET'), $corp->getRefreshToken());
+            $api = new Conduit($auth);
 
-        foreach ($apiStructures as $apiStructure) {
-            $structureName = Structure::removeSystemFromName($api->universe()->structures($apiStructure->structure_id)->get()->data->name);
-            $structure = Structure::firstOrNew(['structure_id' => $apiStructure->structure_id]);
-            $structure->structure_id = $apiStructure->structure_id;
-            $structure->type_id = $apiStructure->type_id;
-            $structure->corporation_id = $corp->id;
-            $structure->system_id = $apiStructure->system_id;
-            $structure->profile_id = $apiStructure->profile_id;
-            $structure->reinforce_weekday = $apiStructure->reinforce_weekday;
-            $structure->reinforce_hour = $apiStructure->reinforce_hour;
-            $structure->state = $apiStructure->state;
-            $structure->name = $structureName;
-            $structure->updated_at = Carbon::now();
-            if (isset($apiStructure->services)) {
-                $structure->services = json_encode($apiStructure->services);
-            } else {
-                $structure->services = null;
+            $apiStructures = $api->corporations($corp->corporation_id)->structures()->get()->data;
+            foreach ($apiStructures as $apiStructure) {
+                $structureName = Structure::removeSystemFromName($api->universe()->structures($apiStructure->structure_id)->get()->data->name);
+                $structure = Structure::firstOrNew(['structure_id' => $apiStructure->structure_id]);
+                $structure->structure_id = $apiStructure->structure_id;
+                $structure->type_id = $apiStructure->type_id;
+                $structure->corporation_id = $corp->id;
+                $structure->system_id = $apiStructure->system_id;
+                $structure->profile_id = $apiStructure->profile_id;
+                $structure->reinforce_weekday = $apiStructure->reinforce_weekday;
+                $structure->reinforce_hour = $apiStructure->reinforce_hour;
+                $structure->state = $apiStructure->state;
+                $structure->name = $structureName;
+                $structure->updated_at = Carbon::now();
+                if (isset($apiStructure->services)) {
+                    $structure->services = json_encode($apiStructure->services);
+                } else {
+                    $structure->services = null;
+                }
+
+                if (isset($apiStructure->fuel_expires)) {
+                    $structure->fuel_expires = new Carbon($apiStructure->fuel_expires);
+                } else {
+                    $structure->fuel_expires = null;
+                }
+                $structure->save();
+
+                // Add Type data if required
+                Type::Add($structure->type_id);
             }
 
-            if (isset($apiStructure->fuel_expires)) {
-                $structure->fuel_expires = new Carbon($apiStructure->fuel_expires);
-            } else {
-                $structure->fuel_expires = null;
-            }
-            $structure->save();
-
-            // Add Type data if required
-            Type::Add($structure->type_id);
+        } catch (\Exception $e) {
+            \Log::error("Structure update failed for {$corp->name}: " . $e->getMessage());
         }
     }
 
